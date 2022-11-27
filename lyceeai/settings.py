@@ -73,7 +73,9 @@ WSGI_APPLICATION = 'lyceeai.wsgi.application'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+import os.path 
+ABSOLUTE_PATH = lambda x: os.path.join(os.path.abspath(os.path.dirname(__file__)), x) 
+MEDIA_ROOT = ABSOLUTE_PATH('media/')
 
 
 # Database

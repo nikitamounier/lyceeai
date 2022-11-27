@@ -2,29 +2,45 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import os
 import requests
+from .models import AISession, ResponseImage, RequestImage
 
 def index(request):
     return render(request, 'faceai/index.html')
 
 
 def upload(request):
-    API_KEY = os.getenv('API_KEY')
+    images = request.FILES.getlist('images')
+    for image in images:
+        RequestImage.objects.create(image=image)
+    images = RequestImage.objects.all()
+    if request.method == 'POST':
+        return render(request, 'faceai/upload.html', {'images': images})
+    elif request.method == 'GET':
+        return HttpResponse('Hello, world. You\'re at the upload website now.')
 
-    headers = {
-        'Authorization': f'Bearer {API_KEY}',
-    }
+    # execute if form action is submit_all
+    #if request.POST.get('submit_all'):
+     #   print("submitted all")
+      #  return
+        # title = request.POST['title']
+        
 
-    files = [
-        ('tunecallback', (None, 'https://optional-callback-url.com/to-your-service-when-ready')),
-        ('tunetitle', (None, 'my portrait')),
-        ('tunebranch', (None, '')),
-        ('tune[name]', (None, 'person')),
-        ('tune[images][]', open('1.jpg', 'rb')),
-        ('tune[images][]', open('2.jpg', 'rb')),
-        ('tune[images][]', open('3.jpg', 'rb')),
-        ('tune[images][]', open('4.jpg', 'rb')),
-    ]
+        # API_KEY = os.getenv('API_KEY')
 
-    files += [('tune[images][]', open(f'{i}.jpg', 'rb')) for i in range(5, 11)]
+        # headers = {
+        #     'Authorization': f'Bearer {API_KEY}',
+        # }
 
-    response = requests.post('https://api.astria.ai/tunes', headers=headers, files=files)
+        # files = [
+        #     ('tune[callback]', (None, 'https://127:0.0.1:8000/prompt')),
+        #     ('tune[title]', (None, title)),
+        #     ('tune[branch]', (None, '')),
+        #     ('tune[name]', (None, 'person'))
+        # ] + [('tune[images][]', open(image, 'rb')) for image in images]
+
+        # response = requests.post('https://api.astria.ai/tunes', headers=headers, files=files)
+
+        # return HttpResponse(response.text)
+
+def prompt(request):
+    return HttpResponse('Hello, world. You\'re at the prompt website now.')

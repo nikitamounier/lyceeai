@@ -7,9 +7,15 @@ class AISession(models.Model):
     def __str__(self):
         return f"{self.prompt, self.timestamp}"
 
-class Image(models.Model):
+class ResponseImage(models.Model):
     image = models.ImageField(upload_to='images/')
     session = models.ForeignKey(AISession, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.image, self.session}"
+
+class RequestImage(models.Model):
+    image = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return f"{self.image, self.session}"

@@ -1,9 +1,15 @@
 from django.db import models
 
-class Session(models.Model):
-    prompt = models.CharField(max_length=500)
+class AISession(models.Model):
+    prompt = models.TextField()
     timestamp = models.DateTimeField('date created')
 
+    def __str__(self):
+        return f"{self.prompt, self.timestamp}"
+
 class Image(models.Model):
-    session = models.ForeignKey(Session, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
+    session = models.ForeignKey(AISession, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.image, self.session}"

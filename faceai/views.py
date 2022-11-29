@@ -13,7 +13,7 @@ def index(request):
 
 
 def upload(request):
-    url = request.get_raw_uri()
+    url = request.build_absolute_uri()
     s = url.split("description=")
     if len(s) == 1:
         request.method = "POST"

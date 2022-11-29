@@ -3,8 +3,14 @@
 <html>
 <head>
     <style>
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
         body {
             background-color: rgb(166, 172, 250);
+            font-family: "Tahoma";
         }
 
         .box {
@@ -13,17 +19,39 @@
             margin-right: 50px;
             position: relative;
         }
+
+        h1 {
+            font-size: 50px;
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+
+        .button {
+            background-color: #2729c5; /* Green */
+            border: none;
+            color: white;
+            padding: 18px 36px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 22px;
+            border-radius: 14px;
+            position: relative;
+            left: 42%;
+            
+    }
+
+
     </style>
 </head>
+    <h1> FaceAI </h1>
+    <a class = "button" href="{% url 'upload' %}">Make your own</a>
 
 <body>
     <div class="box">
         <table border="0" bgcolor="#3388FF"><tr><td colspan="3">&nbsp;</td></tr><tr><td></td><td>
-            {% if sessions %}
-            SESSIONS!
-            {% endif %}
             {% for session in sessions %}
-                <p> {{ session.0.prompt }} </p>
+                <h2> {{ session.0.prompt }} </h2>
                 {% for image in session.1 %}
                     <img src="{{image.image.url}}" alt="Image">
                 {% endfor %}

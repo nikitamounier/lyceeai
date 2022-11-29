@@ -16,6 +16,7 @@ def index(request):
 
 
 def upload(request):
+    RequestImage.objects.all().delete()
     url = request.build_absolute_uri()
     s = url.split("description=")
     if len(s) == 1:

@@ -26,20 +26,34 @@
             margin-right: 50px;
             position: relative;
         }
+
+        .button {
+            background-color: #2729c5; /* Green */
+            border: none;
+            color: white;
+            padding: 12px 26px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 22px;
+            border-radius: 14px;
+            
+    }
+
     </style>
     <title>Upload images</title>
 </head>
 <body>
     <div id="header" style="top:0%;left:0%;position:absolute">
         <p style="font-family: Tahoma; font-size: 30px; margin-left: 30px;">
-            INSERT TEXT HERE WITH INSTRUCTIONS?</p>
+            Uploadez vos 20 images et ecrivez votre phrase.</p>
     </div>
     <div class="choose_files">
-        <table border="0" bgcolor="#3388FF"><tr><td colspan="3">&nbsp;</td></tr><tr><td></td><td>
+        <table style="border-radius: 14px;"="0" bgcolor="#3388FF"><tr><td colspan="3">&nbsp;</td></tr><tr><td></td><td>
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="file" name="images" multiple>
-                <button>Upload</button>
+                <button class = "button">Upload</button>
             </form>
             <hr>
         </td><td></td></tr><tr><td></td><td>

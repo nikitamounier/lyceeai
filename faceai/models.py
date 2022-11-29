@@ -16,7 +16,6 @@ class ResponseImage(models.Model):
 
 class RequestImage(models.Model):
     image = models.ImageField(upload_to='images/')
-    #session = models.ForeignKey(AISession, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.image, self.session}"
+        return f"{self.image}"

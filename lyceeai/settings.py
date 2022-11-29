@@ -73,7 +73,6 @@ WSGI_APPLICATION = 'lyceeai.wsgi.application'
 
 MEDIA_URL = '/media/'
 
-import os.path 
 ABSOLUTE_PATH = lambda x: os.path.join(os.path.abspath(os.path.dirname(__file__)), x) 
 MEDIA_ROOT = ABSOLUTE_PATH('media/')
 
@@ -123,7 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

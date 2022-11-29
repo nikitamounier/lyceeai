@@ -9,7 +9,10 @@ imgs = []
 
 
 def index(request):
-    return render(request, 'index.html')
+    response_image = ResponseImage.objects.all()
+    sessions = [(aiSession, [image for image in response_image if image.session == aiSession]) for aiSession in AISession.objects.all()]
+    print(sessions)
+    return render(request, 'index.html', {'sessions': sessions})
 
 
 def upload(request):

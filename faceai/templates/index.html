@@ -1,1 +1,35 @@
-Hello world!
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: rgb(166, 172, 250);
+        }
+
+        .box {
+            top: 140px;
+            left: 20px;
+            margin-right: 50px;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <table border="0" bgcolor="#3388FF"><tr><td colspan="3">&nbsp;</td></tr><tr><td></td><td>
+            {% if sessions %}
+            SESSIONS!
+            {% endif %}
+            {% for session in sessions %}
+                <p> {{ session.0.prompt }} </p>
+                {% for image in session.1 %}
+                    <img src="{{image.image.url}}" alt="Image">
+                {% endfor %}
+            {% endfor %}
+            </td><td></td></tr><tr><td></td><td>
+            </td><td></td></tr><tr><td colspan="3">&nbsp;</td></tr></table>
+    </div>
+</body>
+</html>

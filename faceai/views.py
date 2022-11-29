@@ -55,6 +55,19 @@ def aiRequest():
         print(response.status_code, response.text)
         
 
+def loading(request):
+    API_KEY = os.getenv('API_KEY')
 
-def prompt(request):
-    return HttpResponse('Hello, world...')
+    headers = {
+        'Authorization': f'Bearer {API_KEY}',
+    }
+
+    files = {
+        'prompttext': (None, AISession.objects.first().prompt),
+        'promptnegative_prompt': (None, ''),
+        'promptcallback': (None, 'http://127.0.0.1:8000/results'),
+    }
+
+    response = requests.post(f'https://api.astria.ai/tunes/{request["id"]}/prompts', headers=headers, files=files)
+
+    return render(request, 'loading.html')

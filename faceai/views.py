@@ -7,8 +7,10 @@ from django.conf import settings
 
 imgs = []
 
+
 def index(request):
-    return render(request, 'faceai/index.html')
+    return render(request, 'index.html')
+
 
 def upload(request):
     url = request.get_raw_uri()
@@ -23,12 +25,8 @@ def upload(request):
     if request.method == 'POST':
         return render(request, 'upload.html', {'images': imgs})
     elif request.method == 'GET':
-        #aiRequest()
+        aiRequest()
         return render(request, 'loading.html', {'description': description})
-
-def loading(request):
-    session_data = request.GET.get('session_id')
-    return HttpResponse(f"session data: {session_data}")
 
 def aiRequest():
     headers = {
@@ -42,7 +40,6 @@ def aiRequest():
         ('tune[name]', (None, 'man')),
     ] + [('tune[images][]', (None, open(settings.MEDIA_ROOT[:-6] + image.image.url, 'rb'))) for image in RequestImage.objects.all()]
 
-    RequestImage.objects.all().delete()
 
 
     response = requests.post('https://api.astria.ai/tunes', headers=headers, data=files)
@@ -56,4 +53,4 @@ def aiRequest():
 
 
 def prompt(request):
-    return HttpResponse('Hello, world. You\'re at the prompt website now.')
+    return HttpResponse('Hello, world...')

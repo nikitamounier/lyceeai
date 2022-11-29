@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        img {
+            height: 200px;
+            width: 200px;
+        }
+
+        body {
+            background-color: rgb(166, 172, 250);
+        }
+
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .choose_files {
+            top: 140px;
+            left: 20px;
+            margin-right: 50px;
+            position: relative;
+        }
+    </style>
+    <title>Upload images</title>
+</head>
+<body>
+    <div id="header" style="top:0%;left:0%;position:absolute">
+        <p style="font-family: Tahoma; font-size: 30px; margin-left: 30px;">
+            INSERT TEXT HERE WITH INSTRUCTIONS?</p>
+    </div>
+    <div class="choose_files">
+        <table border="0" bgcolor="#3388FF"><tr><td colspan="3">&nbsp;</td></tr><tr><td></td><td>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="images" multiple>
+                <button>Upload</button>
+            </form>
+            <hr>
+        </td><td></td></tr><tr><td></td><td>
+            {% for img in images %}
+            <img src="{{img.image.url}}" alt="Image">
+            {% endfor %}
+            {% if images %}
+            <hr>
+            <form action="" method="get" name="desc">
+                {% csrf_token %}
+                <button>Submit all</button>
+                <p style="font-family: Tahoma; font-size: 12;"><strong>Please provide a magic phrase...</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" name="description" style="width: 75%;">
+                </p>
+            </form>
+            {% endif %}
+        </td><td></td></tr><tr><td colspan="3">&nbsp;</td></tr></table>
+    </div>
+</body>
+</html>

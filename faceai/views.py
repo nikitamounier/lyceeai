@@ -37,16 +37,18 @@ def aiRequest():
         'Authorization': 'Bearer sd_wyFzfXmVBY9Bo5i7AfGvHjJR6MQgAW',
     }
 
-    files = [
+    data = [
         ('tune[callback]', (None, 'http://127.0.0.1:8000/loading')),
         ('tune[title]', (None, 'my portrait')),
         ('tune[branch]', (None,'')),
         ('tune[name]', (None, 'man')),
-    ] + [('tune[images][]', (None, open(settings.MEDIA_ROOT[:-6] + image.image.url, 'rb'))) for image in RequestImage.objects.all()]
+    ]
+    
+    files = [('tune[images][]', (None, open(settings.MEDIA_ROOT[:-6] + image.image.url, 'rb'))) for image in RequestImage.objects.all()]
 
 
 
-    response = requests.post('https://api.astria.ai/tunes', headers=headers, data=files)
+    response = requests.post('https://api.astria.ai/tunes', headers=headers, data=data, files=files)
     # check if the response was successful
     if response.status_code == 200:
         print(response.status_code, response.json())
